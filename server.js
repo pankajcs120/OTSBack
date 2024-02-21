@@ -15,7 +15,7 @@ const app = express();
 dotenv.config();
 // mongoose.set("strictQuery", true);
 
-mongoose.connect(process.env.MONGO_DB,{
+mongoose.connect(process.env.MONGODB_URI,{
   useNewUrlParser:true,useUnifiedTopology:true
 }  
 ).then(()=>app.listen(process.env.PORT,    
