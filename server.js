@@ -17,18 +17,18 @@ dotenv.config();
 app.get('/', (req, res) => {
   res.send('Hello, World!');
 });
-// app.get('/api', (req, res) => {
-//   console.log("============");
-//   console.log("/api");
-// });
-// mongoose.connect(process.env.MONGODB_URI,{
-//   useNewUrlParser:true,useUnifiedTopology:true
-// }  
-// ).then(()=>app.listen(process.env.PORT,    
-// ()=>console.log(`Listening at ${process.env.PORT}`)
-// )
-// )
-// .catch((error)=>console.log(error));
+app.get('/api', (req, res) => {
+  console.log("============");
+  console.log("/api");
+});
+mongoose.connect(process.env.MONGODB_URI,{
+  useNewUrlParser:true,useUnifiedTopology:true
+}  
+).then(()=>app.listen(process.env.PORT,    
+()=>console.log(`Listening at ${process.env.PORT}`)
+)
+)
+.catch((error)=>console.log(error));
 
 
 app.use(cors({ origin: "https://ots-front-eta.vercel.app/", credentials: true }));
@@ -50,15 +50,3 @@ app.use((err, req, res, next) => {
   return res.status(errorStatus).send(errorMessage);
 });
 
-const PORT = process.env.PORT || 3000;
-
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-  .then(() => {
-    app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
-    });
-  })
-  .catch((error) => console.log(error));
