@@ -17,6 +17,9 @@ dotenv.config();
 app.get('/', (req, res) => {
   res.send('Hello, World!');
 });
+app.get('/api', (req, res) => {
+  console.log("============");
+  console.log("/api");
 mongoose.connect(process.env.MONGODB_URI,{
   useNewUrlParser:true,useUnifiedTopology:true
 }  
