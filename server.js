@@ -20,6 +20,7 @@ app.get('/', (req, res) => {
 app.get('/api', (req, res) => {
   console.log("============");
   console.log("/api");
+});
 mongoose.connect(process.env.MONGODB_URI,{
   useNewUrlParser:true,useUnifiedTopology:true
 }  
