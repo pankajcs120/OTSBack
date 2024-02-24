@@ -43,6 +43,11 @@ app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
   const errorMessage = err.message || "Something went wrong!";
 
-  return res.status(errorStatus).send(errorMessage);
+  res.status(errorStatus)
+    .header("Access-Control-Allow-Origin", "https://ots-front-9ip0czmvv-pankajs-projects-71493150.vercel.app")
+    .header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+    .header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
+    .send(errorMessage);
 });
+
 
