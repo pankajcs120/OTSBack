@@ -14,7 +14,9 @@ import cors from "cors";
 const app = express();
 dotenv.config();
 // mongoose.set("strictQuery", true);
-
+app.get('/', (req, res) => {
+  res.send('Hello, World!');
+});
 mongoose.connect(process.env.MONGODB_URI,{
   useNewUrlParser:true,useUnifiedTopology:true
 }  
