@@ -13,24 +13,26 @@ import cors from "cors";
 
 const app = express();
 dotenv.config();
-// mongoose.set("strictQuery", true);
-app.get('/api', (req, res) => {
-  res.send('Hello, World!');
-});
-mongoose.connect(process.env.MONGODB_URI,{
-  useNewUrlParser:true,useUnifiedTopology:true
-}  
-).then(()=>app.listen(process.env.PORT,    
-()=>console.log(`Listening at ${process.env.PORT}`)
-)
-)
-.catch((error)=>console.log(error));
 
+// Connect to MongoDB
+mongoose.connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() => app.listen(process.env.PORT, () => console.log(`Listening at ${process.env.PORT}`)))
+.catch((error) => console.log(error));
 
-app.use(cors({ origin: "*", credentials: true }));
+// Configure CORS
+app.use(cors({
+    origin: "https://ots-front-main-8hq3.vercel.app", // Allow only your frontend origin
+    credentials: true, // Allow credentials (cookies, authorization headers)
+    methods: ["GET", "POST", "OPTIONS"], // Allowed HTTP methods
+    allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept", "Authorization"] // Allowed headers
+}));
+
 app.use(express.json());
 app.use(cookieParser());
 
+// Define routes
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/gigs", gigRoute);
@@ -39,15 +41,9 @@ app.use("/api/conversations", conversationRoute);
 app.use("/api/messages", messageRoute);
 app.use("/api/reviews", reviewRoute);
 
+// Simplified error handling middleware
 app.use((err, req, res, next) => {
-  const errorStatus = err.status || 500;
-  const errorMessage = err.message || "Something went wrong!";
-
-  res.status(errorStatus)
-    .header("Access-Control-Allow-Origin", "*")
-    .header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
-    .header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
-    .send(errorMessage);
+    const errorStatus = err.status || 500;
+    const errorMessage = err.message || "Something went wrong!";
+    res.status(errorStatus).send(errorMessage);
 });
-
-
