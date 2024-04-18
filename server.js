@@ -27,7 +27,7 @@ mongoose.connect(process.env.MONGODB_URI,{
 .catch((error)=>console.log(error));
 
 
-app.use(cors({ origin: "https://ots-front-main-8hq3.vercel.app", credentials: true }));
+app.use(cors({ origin: "*", credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -44,7 +44,7 @@ app.use((err, req, res, next) => {
   const errorMessage = err.message || "Something went wrong!";
 
   res.status(errorStatus)
-    .header("Access-Control-Allow-Origin", "https://ots-front-main-8hq3.vercel.app")
+    .header("Access-Control-Allow-Origin", "*")
     .header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
     .header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
     .send(errorMessage);
